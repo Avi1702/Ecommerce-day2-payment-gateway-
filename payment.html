@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment</title>
+    <style></style>
+</head>
+<body>
+    <form>
+        <h3>Card Details</h3>
+        <input type="number" id="cardnumber" placeholder="Card Number"/>
+        <input type="number" id="cvv" placeholder="CVV"/>
+        <input type="date" id="date" />
+        <input type="submit" value="pay"/>
+    </form>
+</body>
+
+<script>
+    let payment
+document.querySelector("form").addEventListener("submit",proceed)
+
+function proceed(){
+    event.preventDefault();
+    
+   let  cardno=document.querySelector("#cardnumber").value
+    let cvv=document.querySelector("#cvv").value
+    let date=document.querySelector("#date").value
+   if(cardno.length!=16){
+alert("Card No Lenght should be 16")
+return
+   }
+   else if(cvv.length!=3){
+       alert("Incorrect CVV")
+       return
+   }
+ 
+   else if(cardno.length===16 && cvv.length===3){
+    window.location.href="otp.html"
+   }
+   
+    
+    
+
+    
+    // if(localStorage.getItem("payment")===null){
+    //     payment=[]
+    // }else{
+    //     payment=JSON.parse(localStorage.getItem("payment"))
+    // }
+    // payment.push(obj)
+    // localStorage.setItem("payment",JSON.stringify(payment))
+
+ 
+    
+}
+//   window.location.href="otp.html"
+</script>
+</html>

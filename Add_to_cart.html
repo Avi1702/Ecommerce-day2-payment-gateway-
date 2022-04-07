@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AddToCart</title>
+    <style>
+#main{
+    width: 100%;
+    margin: auto;
+    display: flex;
+    justify-content: space-between;
+    /* border: 1px solid greenyellow; */
+}
+#main>div{
+    width: 40%;
+
+}
+#main>div+div{
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+}
+#table1{
+    width: 100%;
+    /* margin-top: 30px; */
+ 
+}
+#table2{
+    width: 50%;
+    margin-top: 100px;
+}
+table,td{
+    border: 1px solid black;
+    text-align: center;
+    
+}
+img{
+    width: 50px;
+    height: 50px;
+}
+button{
+    background-color: green;
+}
+button:hover{
+    background-color: red;
+}
+#paybutton{
+    background-color: orange;
+    height: 10%;
+    width: 50%;
+}
+    </style>
+</head>
+
+<body>
+    <h2 id="head">Cart Items</h2>
+    <div id="main">
+   <div id="container">
+
+   </div> 
+   <div id="container2">
+
+   </div>
+</div>
+</body>
+
+
+<script>
+// window.location.reload()
+    let getData=JSON.parse(localStorage.getItem("cart"))
+
+    let table=document.createElement("table")
+    table.setAttribute("id","table1")
+    let heading=document.createElement("tr")
+    let col1=document.createElement("td")
+    col1.innerText="Image";
+    let col2=document.createElement("td")
+    col2.innerText="Title";
+    let col3=document.createElement("td")
+    col3.innerText="Price";
+    let col4=document.createElement("td")
+    col4.innerText="Remove";
+
+    heading.append(col1,col2,col3,col4)
+    table.append(heading)
+    document.getElementById("container").append(table)
+    
+let count=0
+let sum=0
+// cart items table
+function display(){
+    getData.forEach(function(element,indx) {
+
+        let row=document.createElement("tr")
+        let data1=document.createElement("td")
+        let image=document.createElement("img")
+        image.setAttribute("src",element.image)
+        data1.append(image)
+        let data2=document.createElement("td")
+         data2.innerText=element.title
+        let data3=document.createElement("td")
+        data3.innerText=element.price
+        let data4=document.createElement("td")
+        let btn=document.createElement("button")
+        btn.addEventListener("click",remove)
+        // console.log(element,indx)
+        // getData.splice(indx,1)
+
+        // localStorage.setItem("cart",JSON.stringify(getData))
+        // document.getElementById("container").innerHTML=""
+        // window.location.reload()
+        // display()
+    
+        btn.innerText="Remove"
+        data4.append(btn)
+
+        row.append(data1,data2,data3,data4)
+        table.append(row)
+        count++
+        sum+=Number(element.price);
+    });
+}
+
+function remove(ele,indx){
+ getData.splice(indx,1)
+
+        localStorage.setItem("cart",JSON.stringify(getData))
+        document.getElementById("container").innerHTML=""
+        window.location.reload()
+        // display()
+}
+
+  display()
+
+
+    // payment table
+    let table2=document.createElement("table")
+    table2.setAttribute("id","table2")
+
+    let row1=document.createElement("tr")
+    let data1=document.createElement("td")
+    data1.innerText="Total Items";
+
+    let data2=document.createElement("td")
+    data2.innerText=count;
+    row1.append(data1,data2)
+
+    let row2=document.createElement("tr")
+    let total=document.createElement("td")
+    total.innerText="Total Amount";
+    let amount=document.createElement("td")
+    amount.innerText="$"+sum;
+    row2.append(total,amount)
+
+    table2.append(row1,row2)
+
+    let pay=document.createElement("button")
+    pay.setAttribute("id","paybutton")
+    pay.innerText="Proceed To Pay"
+    document.getElementById("container2").append(table2,pay)
+
+    pay.addEventListener("click",function(){
+        window.location.href="Payment.html"
+    });
+
+</script>
+
+</html>
